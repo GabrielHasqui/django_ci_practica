@@ -1,0 +1,15 @@
+.git/
+.github/
+.venv/
+.env
+.env.*
+!.env.example
+.local/
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+staticfiles/
+.vscode/
+.idea/
+.DS_Store
