@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<section class="intro"><p class="eyebrow">ORGANIZA TU PRÁCTICA</p><h1>Mis tareas</h1><p>Crea una tarea, avanza paso a paso y registra lo que ya completaste.</p></section>
+<section class="stats" aria-label="Resumen de tareas">
+  <div><strong>{{ total }}</strong><span>Total</span></div>
+  <div><strong>{{ pendientes }}</strong><span>Pendientes</span></div>
+  <div><strong>{{ completadas }}</strong><span>Completadas</span></div>
+</section>
+<div class="layout">
+  <section class="card"><h2>Nueva tarea</h2>
+    <form method="post" class="task-form">{% csrf_token %}{{ form.as_p }}<button type="submit">Crear tarea</button></form>
+  </section>
+  <section class="card"><h2>Lista de tareas</h2>
+    {% for tarea in tareas %}
+    <article class="task{% if tarea.completada %} done{% endif %}">
+      <div class="task-heading"><h3>{{ tarea.titulo }}</h3><span class="badge">{% if tarea.completada %}Completada{% else %}Pendiente{% endif %}</span></div>
+      {% if tarea.descripcion %}<p class="description">{{ tarea.descripcion }}</p>{% endif %}
+      <small>Creada el {{ tarea.creada_en|date:"d/m/Y H:i" }}</small>
+      <div class="actions">
+        <form method="post" action="{% url 'tareas:estado' tarea.pk %}">{% csrf_token %}<button class="secondary" type="submit">{% if tarea.completada %}Reabrir{% else %}Completar{% endif %}</button></form>
+        <a class="button secondary" href="{% url 'tareas:editar' tarea.pk %}">Editar</a>
+        <form method="post" action="{% url 'tareas:eliminar' tarea.pk %}">{% csrf_token %}<button class="danger" type="submit">Eliminar</button></form>
+      </div>
+    </article>
+    {% empty %}<div class="empty"><h3>Tu lista está lista para empezar</h3><p>Escribe tu primera tarea en el formulario.</p></div>{% endfor %}
+  </section>
+</div>
+{% endblock %}

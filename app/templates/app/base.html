@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Mis tareas · Práctica Django{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'app/styles.css' %}">
+</head>
+<body>
+  <header class="topbar"><div class="container brand"><a href="{% url 'tareas:lista' %}">Práctica Django</a><span>Gestión de la configuración de software</span></div></header>
+  <main class="container">
+    {% for message in messages %}<p class="message" role="status">{{ message }}</p>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="container">Django + PostgreSQL · Proyecto base para integración continua</footer>
+</body>
+</html>

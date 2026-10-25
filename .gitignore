@@ -1,0 +1,11 @@
+.venv/
+.env
+.local/
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+staticfiles/
+.DS_Store
+.idea/
+.vscode/
