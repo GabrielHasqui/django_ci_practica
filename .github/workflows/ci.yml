@@ -65,3 +65,15 @@ jobs:
 
       - name: Ejecutar pruebas
         run: python manage.py test --verbosity 2
+
+      - name: Construir la imagen de Docker
+        run: docker build -t django-practica-imagen:latest .
+
+      - name: Guardar la imagen en un archivo .tar
+        run: docker save -o imagen-django.tar django-practica-imagen:latest
+
+      - name: Subir imagen como artefacto a GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: artefacto-docker
+          path: imagen-django.tar
